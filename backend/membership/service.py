@@ -5,7 +5,7 @@ from typing import Dict, List, Optional, Any, Tuple
 from datetime import datetime, timedelta
 import uuid
 
-from .membership_models import (
+from ..models.membership_models import (
     User, Order, Coupon,
     PRODUCT_PRICES, MEMBERSHIP_BENEFITS
 )
