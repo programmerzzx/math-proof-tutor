@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学证明导师</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .logo {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .features {
+            text-align: left;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .feature {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .feature:last-child {
+            border-bottom: none;
+        }
+        .feature-icon {
+            margin-right: 10px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        .nav {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .nav a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: #f0f0ff;
+        }
+        .nav a:hover {
+            background: #667eea;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">📐</div>
+        <h1>数学证明导师</h1>
+        <p class="subtitle">专业数学证明题AI辅导，从初中到大学全覆盖</p>
+        
+        <div class="features">
+            <div class="feature">
+                <span class="feature-icon">📸</span>
+                <strong>拍照上传</strong> - 手写证明拍照识别
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🔍</span>
+                <strong>智能分析</strong> - 逐步逻辑分析，找出错误
+            </div>
+            <div class="feature">
+                <span class="feature-icon">💡</span>
+                <strong>改进建议</strong> - 不直接给答案，引导思考
+            </div>
+            <div class="feature">
+                <span class="feature-icon">📚</span>
+                <strong>全学段覆盖</strong> - 初中、高中、大学数学
+            </div>
+        </div>
+        
+        <div>
+            <a href="/membership" class="btn">开通会员</a>
+            <a href="/pricing" class="btn btn-secondary">查看价格</a>
+        </div>
+        
+        <div class="nav">
+            <a href="/membership">会员中心</a>
+            <a href="/pricing">定价方案</a>
+            <a href="/my-membership">我的会员</a>
+            <a href="/health">系统状态</a>
+        </div>
+    </div>
+</body>
+</html>
