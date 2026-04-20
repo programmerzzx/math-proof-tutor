@@ -3,7 +3,7 @@
 """
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timedelta
-from .membership_models import MembershipLevel, MEMBERSHIP_BENEFITS, PRODUCT_PRICES
+from ..models.membership_models import MembershipLevel, MEMBERSHIP_BENEFITS, PRODUCT_PRICES
 
 
 class BenefitsManager:
