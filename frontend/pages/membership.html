@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会员中心 - 数学证明导师</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* 页面标题 */
+        .page-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* 价格卡片容器 */
+        .pricing-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+        
+        @media (max-width: 1024px) {
+            .pricing-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .pricing-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* 价格卡片 */
+        .pricing-card {
+            background: white;
+            border-radius: 24px;
+            padding: 32px 28px;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        
+        /* 推荐卡片 */
+        .pricing-card.recommended {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            transform: scale(1.05);
+            z-index: 1;
+        }
+        
+        .pricing-card.recommended:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+        
+        /* 标签 */
+        .badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+        }
+        
+        .slogan-tag {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(255,255,255,0.2);
+            color: inherit;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        /* 卡片标题 */
+        .card-header {
+            text-align: center;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 2px dashed rgba(0,0,0,0.1);
+        }
+        
+        .pricing-card.recommended .card-header {
+            border-bottom-color: rgba(255,255,255,0.2);
+        }
+        
+        .card-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #333;
+        }
+        
+        .pricing-card.recommended .price {
+            color: white;
+        }
+        
+        .price .currency {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        
+        .price .unit {
+            font-size: 1rem;
+            font-weight: 400;
+            opacity: 0.7;
+        }
+        
+        /* 功能列表 */
+        .features {
+            list-style: none;
+            margin-bottom: 28px;
+        }
+        
+        .features li {
+            padding: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            color: #555;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .pricing-card.recommended .features li {
+            color: rgba(255,255,255,0.9);
+            border-bottom-color: rgba(255,255,255,0.1);
+        }
+        
+        .features li:last-child {
+            border-bottom: none;
+        }
+        
+        .features li .icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+        
+        .features li .icon.check {
+            color: #38ef7d;
+        }
+        
+        .features li .icon.cross {
+            color: #ccc;
+        }
+        
+        .pricing-card.recommended .features li .icon.check {
+            color: white;
+        }
+        
+        /* 按钮 */
+        .btn {
+            width: 100%;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-free {
+            background: #f5f5f5;
+            color: #666;
+        }
+        
+        .btn-free:hover {
+            background: #e5e5e5;
+        }
+        
+        .btn-buy {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-buy:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3f96 100%);
+            transform: scale(1.02);
+        }
+        
+        .btn-recommended {
+            background: white;
+            color: #11998e;
+        }
+        
+        .btn-recommended:hover {
+            background: #f0f0f0;
+            transform: scale(1.02);
+        }
+        
+        /* 原价划线 */
+        .original-price {
+            text-decoration: line-through;
+            opacity: 0.5;
+            font-size: 0.9rem;
+            margin-left: 8px;
+        }
+        
+        /* 对比表格 */
+        .comparison-section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-section h2 {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 16px 12px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table th {
+            background: #f8f9fa;
+            font-weight: 700;
+            color: #333;
+        }
+        
+        .comparison-table th.highlight {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+        
+        .comparison-table td.highlight {
+            background: rgba(17, 153, 142, 0.05);
+        }
+        
+        .feature-check {
+            color: #38ef7d;
+            font-weight: bold;
+        }
+        
+        .feature-cross {
+            color: #ddd;
+        }
+        
+        /* 支付方式 */
+        .payment-methods {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .payment-method {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        .payment-method img {
+            width: 24px;
+            height: 24px;
+        }
+        
+        /* 底部提示 */
+        .footer-tips {
+            text-align: center;
+            color: rgba(255,255,255,0.8);
+            margin-top: 40px;
+            font-size: 0.9rem;
+        }
+        
+        .footer-tips a {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        /* 弹窗 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+        
+        .modal h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .modal-amount {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #11998e;
+            margin: 20px 0;
+        }
+        
+        .payment-options {
+            display: flex;
+            gap: 12px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+        
+        .payment-option {
+            padding: 16px 24px;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-option:hover,
+        .payment-option.selected {
+            border-color: #11998e;
+            background: rgba(17, 153, 142, 0.05);
+        }
+        
+        .modal-btn {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 页面标题 -->
+        <div class="page-header">
+            <h1>🎓 会员中心</h1>
+            <p>解锁全部题库，开启数学证明之旅</p>
+        </div>
+        
+        <!-- 价格卡片 -->
+        <div class="pricing-container">
+            <!-- 免费版 -->
+            <div class="pricing-card">
+                <div class="card-header">
+                    <h3>免费版</h3>
+                    <div class="price">
+                        <span class="currency">¥</span>0
+                    </div>
+                </div>
+                <ul class="features">
+                    <li>
+                        <span class="icon check">✓</span>
+                        100道基础题
+                    </li>
+                    <li>
+                        <span class="icon check">✓</span>
+                        每日5次OCR
+                    </li>
+                    <li>
+                        <span class="icon check">✓</span>
+                        基础分析
+                    </li>
+                    <li>
+                        <span class="icon cross">✕</span>
+                        深度分析
+                    </li>
+                    <li>
+                        <span class="icon cross">✕</span>
+                        题库扩充
+                    </li>
+                </ul>
+                <button class="btn btn-free">当前方案</button>
+            </div>
+            
+            <!-- 月度会员 ¥9.9 -->
+            <div class="pricing-card">
+                <div class="slogan-tag">入门体验</div>
+                <div class="card-header">
+                    <h3>月度会员</h3>
+                    <div class="price">
+                        <span class="currency">¥</span>9.9
+                        <span class="unit">/月</span>
+                    </div>
+                </div>
+                <ul class="features">
+                    <li>
+                        <span class="icon check">✓</span>
+                        500道题目
+                    </li>
+                    <li>
+                        <span class="icon check">✓</span>
+                        每日50次OCR
+                    </li>
+                    <li>
+                        <span class="icon check">✓</span>
+                        深度分析+失分点
+                    </li>
+                    <li>
+                        <span class="icon check">✓</span>
+                        学习报告
+                    </li>
+                    <li>
+                        <span class="icon cross">✕</span>
+                        题库扩充
+                    </li>
+                </ul>
+                <button class="btn btn-buy" onclick="showPaymentModal('monthly', 9.9)">立即购买</button>
+            </div>
+            
+            <!-- 年度会员 ¥49 ⭐推荐 -->
+            <div class="pricing-card recommended">
+                <div class="badge">⭐ 最划算</div>
+                <div class="slogan-tag">月均¥4.1 性价比之王</div>
+                <div class="card-header">
+                    <h3>年度会员</h3>
+                    <div class="price">
+                        <span class="currency">¥</span>49
+                        <span class="unit">/年</span>
+                    </div>
+                </div>
+                <ul class="features">
+                    <li>
+                        <span class="icon check">✓</span>
+                        全部题库(2000+题)
+                    </li>
+                    <li>
+                        <span class="icon check">✓</span>
+                        无限次OCR
+                    </li>
+                    <li>
+                        <span class="icon check">✓</span>
+                        完整分析+知识图谱
+                    </li>
+                    <li>
+                        <span class="icon check">✓</span>
+                        题库扩充(4000+题)
+                    </li>
+                    <li>
+                        <span class="icon check">✓</span>
+                        详细学习报告
+                    </li>
+                </ul>
+                <button class="btn btn-recommended" onclick="showPaymentModal('yearly', 49)">立即开通</button>
+            </div>
+            
+            <!-- 终身会员 ¥149 -->
+            <div class="pricing-card">
+                <div class="slogan-tag">一次付费永久使用</div>
+                <div class="card-header">
+                    <h3>终身会员</h3>
+                    <div class="price">
+                        <span class="currency">¥</span>149
+                    </div>
+                </div>
+                <ul class="features">
+                    <li>
+                        <span class="icon check">✓</span>
+                        年度会员所有权益
+                    </li>
+                    <li>
+                        <span class="icon check">✓</span>
+                        永久访问权限
+                    </li>
+                    <li>
+                        <span class="icon check">✓</span>
+                        API接口权限
+                    </li>
+                    <li>
+                        <span class="icon check">✓</span>
+                        优先客服支持
+                    </li>
+                    <li>
+                        <span class="icon check">✓</span>
+                        新功能抢先体验
+                    </li>
+                </ul>
+                <button class="btn btn-buy" onclick="showPaymentModal('lifetime', 149)">永久开通</button>
+            </div>
+        </div>
+        
+        <!-- 功能对比表 -->
+        <div class="comparison-section">
+            <h2>📊 功能对比</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>功能</th>
+                        <th>免费版</th>
+                        <th>月度会员<br>¥9.9/月</th>
+                        <th class="highlight">年度会员<br>¥49/年 ⭐</th>
+                        <th>终身会员<br>¥149</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>题库访问</td>
+                        <td>100道</td>
+                        <td>500道</td>
+                        <td class="highlight">2000+道</td>
+                        <td>4000+道</td>
+                    </tr>
+                    <tr>
+                        <td>OCR识别</td>
+                        <td>每日5次</td>
+                        <td>每日50次</td>
+                        <td class="highlight">无限次</td>
+                        <td>无限次</td>
+                    </tr>
+                    <tr>
+                        <td>分析深度</td>
+                        <td>基础</td>
+                        <td>深度+失分点</td>
+                        <td class="highlight">完整+知识图谱</td>
+                        <td>完整+知识图谱</td>
+                    </tr>
+                    <tr>
+                        <td>学习报告</td>
+                        <td>❌</td>
+                        <td>月度报告</td>
+                        <td class="highlight">详细报告</td>
+                        <td>详细报告</td>
+                    </tr>
+                    <tr>
+                        <td>题库扩充</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                        <td class="highlight">✓ (4000+题)</td>
+                        <td>✓ (4000+题)</td>
+                    </tr>
+                    <tr>
+                        <td>API权限</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                        <td class="highlight">❌</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td>优先客服</td>
+                        <td>❌</td>
+                        <td>❌</td>
+                        <td class="highlight">❌</td>
+                        <td>✓</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- 支付方式 -->
+        <div class="payment-methods">
+            <div class="payment-method">
+                <span>💳</span> 支付宝
+            </div>
+            <div class="payment-method">
+                <span>💰</span> 微信支付
+            </div>
+            <div class="payment-method">
+                <span>💳</span> 银行卡
+            </div>
+        </div>
+        
+        <!-- 底部提示 -->
+        <div class="footer-tips">
+            <p>支付安全由支付宝/微信支付保障 · 7天无理由退款</p>
+            <p style="margin-top: 10px;">遇到问题？联系客服 <a href="#">在线咨询</a></p>
+        </div>
+    </div>
+    
+    <!-- 支付弹窗 -->
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal">
+            <h3 id="modalTitle">确认购买</h3>
+            <p id="modalProduct">月度会员</p>
+            <div class="modal-amount">
+                ¥<span id="modalAmount">2</span>
+            </div>
+            <div class="payment-options">
+                <div class="payment-option selected" onclick="selectPayment(this, 'alipay')">
+                    <span>💳</span> 支付宝
+                </div>
+                <div class="payment-option" onclick="selectPayment(this, 'wechat')">
+                    <span>💰</span> 微信
+                </div>
+            </div>
+            <input type="text" id="couponCode" placeholder="输入优惠码（选填）" 
+                   style="width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 8px; margin: 10px 0;">
+            <button class="modal-btn" onclick="confirmPayment()">确认支付 ¥<span id="confirmAmount">2</span></button>
+        </div>
+    </div>
+    
+    <script>
+        let currentProduct = null;
+        let currentAmount = 0;
+        let selectedPayment = 'alipay';
+        
+        // 显示支付弹窗
+        function showPaymentModal(product, amount) {
+            currentProduct = product;
+            currentAmount = amount;
+            
+            const productNames = {
+                'monthly': '月度会员',
+                'yearly': '年度会员',
+                'lifetime': '终身会员'
+            };
+            
+            document.getElementById('modalTitle').textContent = productNames[product] + '开通';
+            document.getElementById('modalProduct').textContent = productNames[product];
+            document.getElementById('modalAmount').textContent = amount;
+            document.getElementById('confirmAmount').textContent = amount;
+            
+            document.getElementById('paymentModal').classList.add('active');
+        }
+        
+        // 选择支付方式
+        function selectPayment(element, method) {
+            document.querySelectorAll('.payment-option').forEach(el => {
+                el.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            selectedPayment = method;
+        }
+        
+        // 确认支付
+        async function confirmPayment() {
+            const couponCode = document.getElementById('couponCode').value;
+            
+            // 调用API创建订单
+            try {
+                const response = await fetch('/api/membership/purchase', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        product: currentProduct,
+                        payment_method: selectedPayment,
+                        coupon_code: couponCode || null
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // 根据支付方式跳转
+                    if (selectedPayment === 'alipay' && result.data.pay_url) {
+                        window.location.href = result.data.pay_url;
+                    } else if (selectedPayment === 'wechat' && result.data.qr_code_url) {
+                        showQRCode(result.data.qr_code_url);
+                    } else {
+                        alert('订单创建成功！');
+                    }
+                } else {
+                    alert(result.message || '订单创建失败');
+                }
+            } catch (error) {
+                console.error('Payment error:', error);
+                alert('支付接口暂时不可用，请稍后再试');
+            }
+        }
+        
+        // 关闭弹窗
+        document.getElementById('paymentModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
