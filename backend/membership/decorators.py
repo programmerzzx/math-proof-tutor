@@ -2,6 +2,7 @@
 会员权限装饰器
 """
 from functools import wraps
+from typing import List
 from flask import request, jsonify, g
 from datetime import datetime
 from .benefits import BenefitsManager
